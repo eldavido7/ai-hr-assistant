@@ -1,0 +1,40 @@
+{
+  "name": "hr-ai-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^2.0.57",
+    "@prisma/client": "^6.18.0",
+    "@upstash/redis": "^1.35.6",
+    "@upstash/vector": "^1.2.2",
+    "@vercel/postgres": "^0.10.0",
+    "ai": "^5.0.80",
+    "dotenv": "^17.2.3",
+    "next": "16.0.1",
+    "pdf-parse": "^2.4.5",
+    "pdf2json": "^4.0.0",
+    "pdfjs-dist": "^5.4.296",
+    "pgvector": "^0.2.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/pdf-parse": "^1.1.5",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.1",
+    "prisma": "^6.18.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

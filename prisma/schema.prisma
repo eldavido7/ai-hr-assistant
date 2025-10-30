@@ -1,0 +1,27 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+}
+
+model HRDocument {
+  id        Int      @id @default(autoincrement())
+  filename  String   @unique
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([filename])
+}
+
+model Resume {
+  id        Int      @id @default(autoincrement())
+  filename  String   @unique
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([filename])
+}
