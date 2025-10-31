@@ -61,7 +61,7 @@ async function sendTelegramMessage(chatId: number, text: string) {
 
 // Optional: Set webhook on deploy
 export const GET = async () => {
-    const webhookUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://your-app.vercel.app'}/api/telegram/webhook`;
+    const webhookUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/telegram/webhook`;
     const setUrl = `${TELEGRAM_API}/setWebhook?url=${webhookUrl}`;
     const res = await fetch(setUrl);
     const data = await res.json();
