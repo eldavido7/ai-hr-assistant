@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
         const { answer } = await answerHRQuestion(question.trim());
         return NextResponse.json({ answer });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Ask route error:', error);
         return NextResponse.json({ error: 'Internal error' }, { status: 500 });
     }

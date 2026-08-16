@@ -24,8 +24,8 @@ export const DELETE = async (req: NextRequest) => {
             await db.hRDocument.deleteMany({});
             return NextResponse.json({ message: 'All HR documents deleted' });
         }
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Delete error:', error);
-        return NextResponse.json({ error: 'Failed', details: error.message }, { status: 500 });
+        return NextResponse.json({ error: 'Failed', details: (error as Error).message }, { status: 500 });
     }
 };

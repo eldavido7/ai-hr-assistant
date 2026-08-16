@@ -49,8 +49,8 @@ export const GET = async (req: NextRequest) => {
             documents: formatted,
             count: formatted.length,
         });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('List error:', error);
-        return NextResponse.json({ error: 'Failed', details: error.message }, { status: 500 });
+        return NextResponse.json({ error: 'Failed', details: (error as Error).message }, { status: 500 });
     }
 };

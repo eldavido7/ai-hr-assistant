@@ -2,6 +2,10 @@
 import { queryDeepSeek, processDeepSeekResponse } from './ai';
 import { db } from './db';
 
+interface KeywordResponse {
+    keywords?: string[];
+}
+
 async function generateSearchTerms(query: string): Promise<string> {
     const prompt = `Given this user question, generate 3-5 SHORT single-word or two-word keywords to search HR documents.
 
@@ -19,8 +23,10 @@ Return ONLY a JSON object with simple keywords:
     try {
         const raw = await queryDeepSeek(prompt);
         const processed = processDeepSeekResponse(raw);
-        const parsed = JSON.parse(processed);
-        const keywords = (parsed.keywords || []).slice(0, 3);
+        const parsed: unknown = JSON.parse(processed);
+        const keywords = Array.isArray((parsed as KeywordResponse).keywords)
+            ? (parsed as KeywordResponse).keywords!.slice(0, 3)
+            : [];
         const terms = keywords.join(' ') || query;
         console.log('🔍 Search terms:', terms);
         return terms;
@@ -160,7 +166,7 @@ export async function retrieveRelevantText(query: string): Promise<string> {
     return relevantContext;
 }
 
-export async function answerHRQuestion(question: string, ip?: string): Promise<{ answer: string }> {
+export async function answerHRQuestion(question: string): Promise<{ answer: string }> {
 
     // === CHECK: Do ANY documents exist? ===
     const docCount = await db.hRDocument.count();

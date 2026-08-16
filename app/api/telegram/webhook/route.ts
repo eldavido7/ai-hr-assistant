@@ -40,7 +40,7 @@ export const POST = async (req: NextRequest) => {
 
         await sendTelegramMessage(chatId, answer);
         return NextResponse.json({ ok: true });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Telegram webhook error:', error);
         return NextResponse.json({ error: 'Webhook failed' }, { status: 500 });
     }
