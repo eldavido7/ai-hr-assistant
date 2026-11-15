@@ -1,6 +1,6 @@
 // app/api/upload-hr-documents/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { indexHRDocument } from '@/lib/hr-document-index';
 
 interface PdfTextRun {
   T: string;
@@ -99,11 +99,7 @@ export const POST = async (req: NextRequest) => {
           continue;
         }
 
-        await db.hRDocument.upsert({
-          where: { filename: file.name },
-          update: { content: trimmed },
-          create: { filename: file.name, content: trimmed },
-        });
+        await indexHRDocument(file.name, trimmed);
 
         uploaded.push(file.name);
       } catch (error: unknown) {

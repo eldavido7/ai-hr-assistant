@@ -7,7 +7,8 @@
     "prebuild": "prisma generate",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "rag:reindex": "tsx temp-setup.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.57",
@@ -33,10 +34,12 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
+    "baseline-browser-mapping": "^2.11.35",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
     "prisma": "^6.18.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
