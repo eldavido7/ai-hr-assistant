@@ -1,0 +1,41 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model HRDocument {
+  id        Int               @id @default(autoincrement())
+  filename  String            @unique
+  content   String
+  createdAt DateTime          @default(now()) @map("created_at")
+  chunks    HRDocumentChunk[]
+
+  @@index([filename])
+}
+
+model HRDocumentChunk {
+  id         Int        @id @default(autoincrement())
+  documentId Int        @map("document_id")
+  chunkIndex Int        @map("chunk_index")
+  content    String
+  createdAt  DateTime   @default(now()) @map("created_at")
+  document   HRDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@unique([documentId, chunkIndex])
+  @@index([documentId])
+  @@map("HRDocumentChunk")
+}
+
+model Resume {
+  id        Int      @id @default(autoincrement())
+  filename  String   @unique
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([filename])
+}
