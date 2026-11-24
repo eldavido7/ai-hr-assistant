@@ -136,7 +136,7 @@ export async function POST(req: NextRequest) {
             await sendWhatsAppMessage(
               userPhone,
               answer +
-                `\n\nI've forwarded your question to the team for a more detailed response.`
+              `\n\nI've forwarded your question to the team for a more detailed response.`
             );
           } else {
             await sendWhatsAppMessage(
