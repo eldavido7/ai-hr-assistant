@@ -122,21 +122,25 @@ export async function POST(req: NextRequest) {
               ?? change.value.contacts?.[0];
             const contactName = contact?.profile?.name || 'WhatsApp user';
 
-            await sendWhatsAppEscalation(
-              ESCALATION_NUMBER,
-              {
+            try {
+              await sendWhatsAppEscalation(ESCALATION_NUMBER, {
                 name: contactName,
                 phone: `+${userPhone.replace(/\D/g, '')}`,
                 summary: 'ACF-related question needs human follow-up',
                 message: question,
-              },
-            );
+              });
+            } catch (error) {
+              console.error('WhatsApp escalation delivery failed:', error);
+              await sendWhatsAppMessage(
+                userPhone,
+                `${answer}\n\nI couldn't reach the ACF team just now. Please contact them directly for help.`,
+              );
+              continue;
+            }
 
-            // Let the user know it's been escalated
             await sendWhatsAppMessage(
               userPhone,
-              answer +
-              `\n\nI've forwarded your question to the team for a more detailed response.`
+              `${answer}\n\nI've escalated your question to the ACF team. You should receive a follow-up message here with the appropriate help.`,
             );
           } else {
             await sendWhatsAppMessage(

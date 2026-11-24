@@ -64,7 +64,14 @@ message to 650 characters, and checks that the rendered body stays within
 Meta's 1,024-character limit. The escalation recipient must be configured in
 `WHATSAPP_ESCALATION_NUMBER` and opted in to receive WhatsApp messages. The
 user-facing reply is sent as a service message within the 24-hour customer
-service window opened by the user's inbound message.
+service window opened by the user's inbound message. A successful template
+send is followed by a confirmation to the user; if sending the alert fails,
+the user is told to contact the ACF team directly instead.
+
+To test escalation, send a question that is clearly about an ACF programme or
+service but whose answer is absent from the uploaded documents. An unrelated
+question should not escalate. Escalation classification is performed by the
+answer model, so exact phrasing can affect the result.
 
 ## Run locally
 
